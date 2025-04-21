@@ -1,8 +1,5 @@
 services:
   - type: web
     name: shopify-addproduct-enhancer
-    env: node
-    buildCommand: npm install && npm run build
-    startCommand: npm run start
+    env: static
     staticPath: dist
-    nodeVersion: 18.x
