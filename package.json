@@ -3,6 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://Liliyalexx.github.io/Shopify-Add-Product-Solution/",
+
   "scripts": {
     "start":"npm run preview",
     "dev": "vite",
