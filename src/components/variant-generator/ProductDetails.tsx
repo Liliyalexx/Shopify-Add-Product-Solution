@@ -16,7 +16,6 @@ interface ProductDetailsProps {
   onImageChange: (image: string | null) => void;
 }
 
-
 const ProductDetails: React.FC<ProductDetailsProps> = ({
   name,
   description,

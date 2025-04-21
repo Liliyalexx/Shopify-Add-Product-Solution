@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Option, ShopifyColor } from '@/types/variant-generator';
 import { generateVariants, variantTableHeaders } from '@/services/variant-generator.service';
@@ -9,6 +8,8 @@ import ProductDetails from '@/components/variant-generator/ProductDetails';
 import OptionsInputs from '@/components/variant-generator/OptionsInputs';
 import ColorSelector from '@/components/variant-generator/ColorSelector';
 import VariantPreview from '@/components/variant-generator/VariantPreview';
+import { Button } from '@/components/ui/button';
+import ProductList from '@/components/variant-generator/ProductList';
 
 interface Product {
   id: string;
@@ -18,6 +19,8 @@ interface Product {
   options: Option[];
   selectedColors: string[];
   variants: string[][];
+  quantity?: number;
+  datePosted?: string;
 }
 
 const defaultOptions = [
@@ -54,6 +57,8 @@ const VariantGenerator: React.FC = () => {
     { name: 'Navy', code: '#000080' },
     { name: 'Beige', code: '#F5F5DC' },
   ]);
+
+  const [postedProducts, setPostedProducts] = useState<Product[]>([]);
 
   const { toast } = useToast();
   
@@ -132,6 +137,22 @@ const VariantGenerator: React.FC = () => {
     });
   };
 
+  const handlePostProduct = () => {
+    const newPostedProduct = {
+      ...activeProduct,
+      quantity: 100,
+      datePosted: new Date().toLocaleDateString(),
+      available: true
+    };
+    
+    setPostedProducts([...postedProducts, newPostedProduct]);
+    
+    toast({
+      title: "Product Posted",
+      description: `${activeProduct.name} has been added to your product list`
+    });
+  };
+
   return (
     <div className="container mx-auto p-6 max-w-4xl">
       <ProductHeader onAddProduct={addNewProduct} />
@@ -169,6 +190,28 @@ const VariantGenerator: React.FC = () => {
         headers={variantTableHeaders}
         description={activeProduct.description}
         productImage={activeProduct.image}
+      />
+
+      <div className="mt-6">
+        <Button 
+          onClick={handlePostProduct}
+          className="w-full bg-green-600 hover:bg-green-700"
+        >
+          Post Product to Shopify
+        </Button>
+      </div>
+
+      <ProductList 
+        products={postedProducts.map(p => ({
+          id: p.id,
+          name: p.name,
+          image: p.image,
+          sizes: p.options[0].values,
+          colors: p.selectedColors,
+          datePosted: p.datePosted || new Date().toLocaleDateString(),
+          quantity: p.quantity || 0,
+          available: (p.quantity || 0) > 0
+        }))}
       />
     </div>
   );
