@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 export default defineConfig(() => ({
-  base: '/',
+  base: '/Shopify-Add-Product-Solution/',  // ← this should match your repo name!
   server: {
     host: "::",
     port: 8080,
