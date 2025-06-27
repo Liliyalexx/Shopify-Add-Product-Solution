@@ -52,9 +52,6 @@ npm run dev
 
 Feel free to contribute to this project by submitting pull requests or creating issues for any bugs or feature suggestions.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Contact
 
